@@ -7,8 +7,8 @@ def generate_qr():
     Generate new QR code.
     """
 
-    if os.path.isfile("qr.jpg"):
-        os.remove("qr.jpg")
+    if os.path.isfile("output/qr.jpg"):
+        os.remove("output/qr.jpg")
 
     # Generate a random UUID-based string
     random_data = "https://verify.onwingspan.com/18efcp1" + str(uuid.uuid4())  # Example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
@@ -29,4 +29,5 @@ def generate_qr():
     img = qr.make_image(fill="black", back_color="white")
 
     # Save or display
-    img.save("qr.jpg")  # Save as image
+    # img.save("output/qr.jpg")  # Save as image
+    return img
