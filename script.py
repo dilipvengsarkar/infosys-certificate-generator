@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 from qr_generator import generate_qr
 from util import details_to_file_name, date_to_str
+import io
 
 def add_line(image, content, font_file, font_size, color, y, x=None):
     """
@@ -115,5 +116,17 @@ def generate_certificate(name, course, date_created, date_issued):
     add_qr(image)
 
     # Save the output image
-    # image.save(f"output/{details_to_file_name(name, course)}.jpg")
-    image.save(f"output/{details_to_file_name(name, course)}.pdf")
+
+    # image.save(f"output/output.jpg")
+    # image.save(f"output/{details_to_file_name(name, course)}.pdf")
+
+    # Create an in-memory bytes buffer
+    pdf_buffer = io.BytesIO()
+
+    # Save the image as a PDF in-memory
+    image.save(pdf_buffer, format="PDF")
+
+    # Move the pointer to the beginning of the buffer
+    pdf_buffer.seek(0)
+
+    return pdf_buffer  # This can be returned in a web response or saved externally
