@@ -26,11 +26,14 @@ if st.button("Submit", type="primary"):
     if name == '':
         "Enter name!"
     else:
-        certificate = generate_certificate(name, course, date_completed, date_issued)
+        if "certificate" not in st.session_state:
+            st.session_state["certificate"] = generate_certificate(name, course, date_completed, date_issued)
 
-        btn = st.download_button(
-            label="Download",
-            data=certificate,
-            file_name=f"{details_to_file_name(name, course)}.pdf",
-            mime="application/pdf",
-        )
+            certificate = st.session_state["certificate"]
+
+            btn = st.download_button(
+                label="Download",
+                data=certificate,
+                file_name="certificate.pdf",
+                mime="application/pdf",
+            )
