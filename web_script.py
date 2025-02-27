@@ -26,13 +26,11 @@ if st.button("Submit", type="primary"):
     if name == '':
         "Enter name!"
     else:
-        generate_certificate(name, course, date_completed, date_issued)
-        certificate = details_to_file_name(name, course)
+        certificate = generate_certificate(name, course, date_completed, date_issued)
 
-        with open(f"output/{certificate}.pdf", "rb") as file:
-            btn = st.download_button(
-                label="Download",
-                data=file,
-                file_name=f"{certificate}.pdf",
-                mime="application/pdf",
-            )
+        btn = st.download_button(
+            label="Download",
+            data=certificate,
+            file_name=f"{details_to_file_name(name, course)}.pdf",
+            mime="application/pdf",
+        )
